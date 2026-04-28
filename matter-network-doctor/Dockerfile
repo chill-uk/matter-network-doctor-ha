@@ -1,6 +1,13 @@
 ARG BUILD_FROM=ghcr.io/home-assistant/base:latest
 FROM ${BUILD_FROM}
 
+ARG BUILD_VERSION=dev
+ARG BUILD_ARCH=armhf|aarch64|i386|amd64|armv7
+LABEL \
+  io.hass.version="${BUILD_VERSION}" \
+  io.hass.type="addon" \
+  io.hass.arch="${BUILD_ARCH}"
+
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 ENV PATH="/opt/matter-network-doctor/bin:${PATH}"
