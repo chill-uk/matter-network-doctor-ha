@@ -28,9 +28,6 @@ jobs:
           - arch: amd64
             platform: linux/amd64
             build_from: ghcr.io/home-assistant/amd64-base:latest
-          - arch: i386
-            platform: linux/386
-            build_from: ghcr.io/home-assistant/i386-base:latest
           - arch: aarch64
             platform: linux/arm64
             build_from: ghcr.io/home-assistant/aarch64-base:latest
