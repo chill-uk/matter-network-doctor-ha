@@ -23,7 +23,7 @@ def _api_unavailable_suggestion(error: str | None) -> str:
 
 
 def _thread_dataset_result(timeout: float = 4.0) -> tuple[list[dict[str, Any]] | None, str | None]:
-    token = os.environ.get("SUPERVISOR_TOKEN")
+    token = os.environ.get("SUPERVISOR_TOKEN") or os.environ.get("HASSIO_TOKEN")
     if not token:
         return None, "No add-on token is available."
 

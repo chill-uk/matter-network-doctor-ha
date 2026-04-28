@@ -33,7 +33,7 @@ It is designed as a Home Assistant add-on first. The scanner runs from inside th
 - Home Assistant Thread networks: stored Thread datasets and the preferred Thread network when Home Assistant API access is available.
 - Home Assistant reachability: `homeassistant.local`, port `8123`, and Supervisor API presence when exposed.
 - Matter Server reachability: best-effort probes for common port `5580` targets.
-- OpenThread Border Router reachability: best-effort probes for common port `8081` targets.
+- OpenThread Border Router reachability: best-effort probes for common port `8081` targets and read-only REST API checks when available.
 
 ## What It Cannot Prove
 
