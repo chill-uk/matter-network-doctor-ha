@@ -5,7 +5,7 @@ ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 ENV PATH="/opt/matter-network-doctor/bin:${PATH}"
 
-RUN apk add --no-cache ca-certificates iproute2 procps python3 py3-pip
+RUN apk add --no-cache ca-certificates iproute2 procps python3 py3-pip py3-virtualenv
 
 WORKDIR /app
 COPY pyproject.toml README.md ./

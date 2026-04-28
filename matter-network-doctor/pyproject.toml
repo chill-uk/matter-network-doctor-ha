@@ -18,6 +18,7 @@ dependencies = [
   "pydantic>=2.6.0",
   "rich>=13.7.0",
   "typer>=0.12.0",
+  "websocket-client>=1.8.0",
   "zeroconf>=0.132.0"
 ]
 
@@ -26,4 +27,3 @@ matter-network-doctor = "matter_network_doctor.cli:app"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/matter_network_doctor"]
-

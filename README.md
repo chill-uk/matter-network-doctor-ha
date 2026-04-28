@@ -29,7 +29,8 @@ It is designed as a Home Assistant add-on first. The scanner runs from inside th
 - Multicast: IPv4 and IPv6 multicast memberships, including common mDNS groups.
 - mDNS: `_matter._tcp.local.`, `_meshcop._udp.local.`, `_home-assistant._tcp.local.`, and `_http._tcp.local.`.
 - Matter discovery: local Matter services advertised through mDNS.
-- Thread discovery: Thread Border Routers advertised through `_meshcop._udp.local.`.
+- Thread discovery: Thread Border Routers and advertised Thread networks through `_meshcop._udp.local.`.
+- Home Assistant Thread networks: stored Thread datasets and the preferred Thread network when Home Assistant API access is available.
 - Home Assistant reachability: `homeassistant.local`, port `8123`, and Supervisor API presence when exposed.
 - Matter Server reachability: best-effort probes for common port `5580` targets.
 - OpenThread Border Router reachability: best-effort probes for common port `8081` targets.
