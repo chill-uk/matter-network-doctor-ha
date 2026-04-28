@@ -12,6 +12,16 @@ THREAD_DATASETS_COMMAND = "thread/list_datasets"
 HA_WEBSOCKET_URL = "ws://supervisor/core/websocket"
 
 
+def _api_unavailable_suggestion(error: str | None) -> str:
+    if error == "No add-on token is available.":
+        return "Rebuild/reinstall the add-on after enabling homeassistant_api so Home Assistant injects an add-on token."
+    if error and ("Unauthorized" in error or "not authorized" in error or "admin" in error.lower()):
+        return "Home Assistant rejected the Thread dataset command; this may require an admin-level token that add-ons cannot always use."
+    if error and ("not found" in error.lower() or "unknown command" in error.lower()):
+        return "Make sure the Home Assistant Thread integration is loaded and your Home Assistant version supports thread/list_datasets."
+    return "Check the Thread integration and Home Assistant Core API access if you expect a preferred network."
+
+
 def _thread_dataset_result(timeout: float = 4.0) -> tuple[list[dict[str, Any]] | None, str | None]:
     token = os.environ.get("SUPERVISOR_TOKEN")
     if not token:
@@ -179,7 +189,7 @@ def run(discovered: dict[str, list[dict]] | None = None) -> list[CheckResult]:
                 status=Status.SKIP,
                 summary=f"Home Assistant Thread dataset list was not available. {dataset_error}",
                 details={"command": THREAD_DATASETS_COMMAND, "error": dataset_error},
-                suggestions=["Enable Home Assistant API access for the add-on and make sure the Thread integration is loaded if you expect a preferred network."],
+                suggestions=[_api_unavailable_suggestion(dataset_error)],
             )
         )
         return results

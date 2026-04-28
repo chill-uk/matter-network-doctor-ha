@@ -2,7 +2,7 @@ ARG BUILD_FROM=ghcr.io/home-assistant/base:latest
 FROM ${BUILD_FROM}
 
 ARG BUILD_VERSION=dev
-ARG BUILD_ARCH=armhf|aarch64|i386|amd64|armv7
+ARG BUILD_ARCH=armhf|aarch64|amd64|armv7
 LABEL \
   io.hass.version="${BUILD_VERSION}" \
   io.hass.type="addon" \
@@ -19,7 +19,6 @@ COPY pyproject.toml README.md ./
 COPY src ./src
 COPY run.sh /run.sh
 RUN python3 -m venv /opt/matter-network-doctor \
-  && pip install --no-cache-dir --upgrade pip \
   && pip install --no-cache-dir . \
   && chmod +x /run.sh
 

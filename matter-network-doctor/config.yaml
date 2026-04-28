@@ -1,13 +1,12 @@
 name: Matter Network Doctor
 slug: matter_network_doctor
 description: Diagnose local Matter, Thread, IPv6, multicast, and mDNS readiness
-version: 0.2.1
+version: 0.2.2
 arch:
   - aarch64
   - amd64
   - armhf
   - armv7
-  - i386
 image: ghcr.io/chill-uk/matter-network-doctor-ha-{arch}
 startup: application
 boot: manual
