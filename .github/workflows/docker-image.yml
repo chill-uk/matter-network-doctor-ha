@@ -21,6 +21,25 @@ jobs:
     permissions:
       contents: read
       packages: write
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - arch: amd64
+            platform: linux/amd64
+            build_from: ghcr.io/home-assistant/amd64-base:latest
+          - arch: i386
+            platform: linux/386
+            build_from: ghcr.io/home-assistant/i386-base:latest
+          - arch: aarch64
+            platform: linux/arm64
+            build_from: ghcr.io/home-assistant/aarch64-base:latest
+          - arch: armv7
+            platform: linux/arm/v7
+            build_from: ghcr.io/home-assistant/armv7-base:latest
+          - arch: armhf
+            platform: linux/arm/v6
+            build_from: ghcr.io/home-assistant/armhf-base:latest
 
     steps:
       - name: Check out repository
@@ -48,7 +67,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5.9.0
         with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-${{ matrix.arch }}
           flavor: |
             latest=true
           tags: |
@@ -65,10 +84,11 @@ jobs:
         with:
           context: ./matter-network-doctor
           file: ./matter-network-doctor/Dockerfile
-          platforms: linux/amd64,linux/386,linux/arm64,linux/arm/v7,linux/arm/v6
+          platforms: ${{ matrix.platform }}
           build-args: |
+            BUILD_FROM=${{ matrix.build_from }}
             BUILD_VERSION=${{ steps.addon.outputs.version }}
-            BUILD_ARCH=armhf|aarch64|i386|amd64|armv7
+            BUILD_ARCH=${{ matrix.arch }}
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}

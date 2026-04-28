@@ -8,7 +8,7 @@ arch:
   - armhf
   - armv7
   - i386
-image: ghcr.io/chill-uk/matter-network-doctor-ha
+image: ghcr.io/chill-uk/matter-network-doctor-ha-{arch}
 startup: application
 boot: manual
 init: false
