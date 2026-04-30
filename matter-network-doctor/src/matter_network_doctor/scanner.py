@@ -58,6 +58,16 @@ def _suggestions(sections: dict[str, list[CheckResult]]) -> list[CheckResult]:
             suggestions.extend(result.suggestions)
 
     deduped = list(dict.fromkeys(suggestions))
+    has_thread_network = any(
+        result.id.startswith("thread.mdns_network.") or result.id == "otbr.node_status" and result.status == Status.PASS
+        for result in sections.get("Thread Discovery", []) + sections.get("OpenThread Border Router", [])
+    )
+    if has_thread_network:
+        deduped = [
+            suggestion
+            for suggestion in deduped
+            if "add-on token" not in suggestion and "Home Assistant API access" not in suggestion and "homeassistant_api" not in suggestion
+        ]
     if not deduped:
         deduped = ["No specific suggestions generated."]
 

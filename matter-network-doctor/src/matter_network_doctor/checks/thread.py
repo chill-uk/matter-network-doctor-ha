@@ -186,7 +186,7 @@ def run(discovered: dict[str, list[dict]] | None = None) -> list[CheckResult]:
             CheckResult(
                 id="thread.ha_datasets",
                 title="Home Assistant Thread networks",
-                status=Status.SKIP,
+                status=Status.INFO,
                 summary=f"Home Assistant Thread dataset list was not available. {dataset_error}",
                 details={"command": THREAD_DATASETS_COMMAND, "error": dataset_error},
                 suggestions=[_api_unavailable_suggestion(dataset_error)],

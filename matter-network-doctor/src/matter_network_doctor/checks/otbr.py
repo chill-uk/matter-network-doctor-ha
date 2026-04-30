@@ -163,26 +163,6 @@ def run(discovered: dict[str, list[dict]] | None = None) -> list[CheckResult]:
             details={"node": first_node},
         ),
         CheckResult(
-            id="otbr.active_dataset",
-            title="OTBR active dataset",
-            status=Status.PASS if dataset_results else Status.INFO,
-            summary=(
-                "OTBR active dataset TLV is readable. The TLV value is intentionally not printed because it can contain Thread credentials."
-                if dataset_results
-                else "OTBR active dataset TLV was not available through the REST API."
-            ),
-            details={
-                "available_from": [
-                    {
-                        "base_url": result["base_url"],
-                        "active_dataset_tlv_length": result["active_dataset_tlv_length"],
-                    }
-                    for result in dataset_results
-                ],
-                "redacted": True,
-            },
-        ),
-        CheckResult(
             id="otbr.mdns",
             title="OTBR mDNS discovery",
             status=Status.PASS if meshcop else Status.INFO,
@@ -190,4 +170,24 @@ def run(discovered: dict[str, list[dict]] | None = None) -> list[CheckResult]:
             details={"services": meshcop},
         ),
     ]
+    if dataset_results:
+        results.insert(
+            -1,
+            CheckResult(
+                id="otbr.active_dataset",
+                title="OTBR active dataset",
+                status=Status.PASS,
+                summary="OTBR active dataset TLV is readable. The TLV value is intentionally not printed because it can contain Thread credentials.",
+                details={
+                    "available_from": [
+                        {
+                            "base_url": result["base_url"],
+                            "active_dataset_tlv_length": result["active_dataset_tlv_length"],
+                        }
+                        for result in dataset_results
+                    ],
+                    "redacted": True,
+                },
+            ),
+        )
     return results

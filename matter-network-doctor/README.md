@@ -1,6 +1,51 @@
-# Matter Network Doctor Home Assistant Add-on Repository
+# Matter Network Doctor
 
-This repository contains the Matter Network Doctor Home Assistant add-on.
+Matter Network Doctor is a Home Assistant add-on for people whose Matter or Thread devices are not working and who do not know where to start.
+
+It checks the local network from inside Home Assistant and gives a simple report in the add-on logs. It does not fix settings, change your network, pair devices, or upload anything. It only looks and reports what it can see.
+
+## What This Add-on Does
+
+Matter and Thread problems are often caused by network discovery issues. A device may be powered on and nearby, but Home Assistant still cannot find it because something in the local network is blocking or hiding IPv6, multicast, mDNS, Thread, or the Matter Server.
+
+Matter Network Doctor runs a set of read-only checks from the same Home Assistant environment where many people run their Matter controller, Matter Server, and OpenThread Border Router.
+
+In plain terms, it answers questions like:
+
+- Can Home Assistant see the local Matter services on your network?
+- Can Home Assistant see your Thread Border Router?
+- Is IPv6 available locally?
+- Are multicast and mDNS discovery visible?
+- Is the Matter Server reachable?
+- Is the OpenThread Border Router reachable?
+- Which Thread network name is being advertised, if one is visible?
+
+The goal is not to say "your network is perfect." The goal is to give you and anyone helping you a much better starting point.
+
+## What You Need To Do
+
+1. Install the add-on.
+2. Start the add-on.
+3. Open the add-on **Logs** tab.
+4. Read the **Quick Result** section near the top.
+5. If you need help, share the log output with the person helping you.
+
+The report is written to the Home Assistant add-on logs. There is no separate dashboard yet.
+
+## What The Result Means
+
+The log starts with a short **Quick Result** section. This is the part most people should read first.
+
+- **Checks passed** means the add-on saw something useful working.
+- **Warnings** means something may need attention.
+- **Problems** means something important was not working from the add-on's point of view.
+- **Optional checks skipped** usually means an extra check was not available, not necessarily that your network is broken.
+- **Detected Thread network** shows the Thread network name if the add-on can see one.
+- **What to try next** lists the most useful follow-up steps.
+
+Below the quick result, the add-on prints detailed tables. These are mainly for troubleshooting and support.
+
+## Installation
 
 To install it in Home Assistant:
 
@@ -15,12 +60,6 @@ https://github.com/chill-uk/matter-network-doctor-ha
 ```
 
 The add-on folder is [matter-network-doctor](matter-network-doctor/config.yaml).
-
-## Matter Network Doctor
-
-Matter Network Doctor is a local, read-only diagnostic tool for checking whether a Home Assistant environment appears ready for Matter and Thread discovery.
-
-It is designed as a Home Assistant add-on first. The scanner runs from inside the smart-home network so it can inspect IPv6, multicast, mDNS, Matter service discovery, Thread Border Router discovery, and common Home Assistant add-on endpoints.
 
 ## What It Checks
 
